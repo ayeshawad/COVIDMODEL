@@ -9,6 +9,7 @@ p.rho = 0.5;   % bystander damage modulation
 % VIRUS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.V0         = 12;         % initial virus Copies/mL
 p.eps_F_I    = 2*1e-4;             % IFN inhibition of viral production
+p.eps_Gamma_I = 3.147*10^(−4)  % IFN-gamma inhibition of viral production
 p.del_V_MPhi = 768;       % Rate macrophages clear viruses (1/day)
 p.del_V_N    = p.del_V_MPhi;    % Rate neutrophils clear viruses (1/day)
 p.d_V        = 18.94;               % decay rate of viruses (turned off when immune presence is considered)
@@ -24,6 +25,7 @@ p.S0        = 0.16;         % initial alveolar type I +alveolar type II + epithe
 p.lam_S     = 0.7397;           % epithelial cell replication ate
 p.Smax	    = p.S0;             % carrying capacity
 p.h_N       = 3.0198;           % Hill coefficient for neutrophil induced damage of cells (susceptible and infected)
+p.h_MPhi_alpha       = 0.4;           % Hill coefficient for TNF-alpha inhibition of inflammatory macrophages
 p.IC_50_N   = 4.7054*1e-2;           % IC50 for neutrophil induced damage of cells (susceptible and infected)
 p.del_N     = 1.6786; 	        % Rate neutrophils inflict tissue damage (1/cell/day)- XX needs to be converted to ng/mL/day (susceptible and infected)
 p.beta      = 0.289;        %Infection rate
@@ -55,8 +57,10 @@ p.p_MPhi_I_G   = 0.42;        % differentiation of monocyte to macrophage by GM-
 p.eps_G_MPhi   = 2664.5/1e5;        % differentation of monocyte to macrophage by GM-CSf (half-effect)
 p.h_M_MPhi     = 2.0347;     	% differentation of monocyte to macrophage by GM-CSf (hill coefficient)
 p.p_MPhi_I_L   = p.p_MPhi_I_G;             % differentiation of monocyte to macrophage by IL-6 (rate)
-p.eps_L_MPhi   = 1102.9/1e5;        % differentiation of monocyte to macrophage by IL-6 (half-effect)
+p.eps_L_MPhi   = 0.001 % old value was 1102.9/1e5 & differentiation of monocyte to macrophage by IL-6 (half-effect)
 p.d_MPhi_I     = 0.3;        % death rate of infiltrating macrophages
+p.del_MPhi   = 0.617;     % Rate inflammatory macrophages die due to TNF alpha and IFN gamma
+p.eps_alpha_MPhi = 0.001093;
 
 %Monocytes %--------------------------------------------------------------
 p.M0           = 0.0004;                % Initial monocytes x 10^8
@@ -81,6 +85,8 @@ p.eps_L_N    = p.eps_G_M;       % production of neutrophils by IL-6 (half-effect
 p.T0         = 1.104*1e-4;           % Initial number ot T cells x()??
 p.p_T_L      = 4;           %production of T cells by IL-6 (production rate)
 p.eps_L_T    = 1.5*1e-5;      % production of T cells by IL-6 (half-effect)
+p.p_T_Gamma = 6.56  %production of T cells by IFN Gamma (production rate)
+p.eps_Gamma_T    = 0.004;      % production of T cells by IFN-Gamma (half-effect)
 p.p_T_F      = 4;           %production of T cells by IFN (production rate)
 p.eps_F_T    = 1e-3*1.5;       % production of T cells by IFN (half-effect)
 p.d_T        = 0.4;         % decay rate of T cells
@@ -96,8 +102,8 @@ p.stoch_C = 1.4608;         % stochiometric constant for G-CSF
 p.avo=6.02214E23;           % avogadro's number
 
 % IL-6 --------------------------------------------------------
-p.L_U_0 = 1.1;             % Initial GM-CSF (unbound) in ng/mL
-p.L_B_0 = 0;                % Initial GM-CSF (bound) in ng/mL
+p.L_U_0 = 1.1;             % Initial IL6(unbound) in pg/mL
+p.L_B_0 = 0;                % Initial IL6 (bound) in pg/mL
 p.p_L_I = 1188.7/1E2;
 p.eta_L_I =  0.7;
 p.p_L_MPhi = 1872;          %IL-6 production by infiltrating (systemic) macrophages (rate)
@@ -168,7 +174,7 @@ p.del_V_N = 768*3;
 p.del_V_MPhi = 768*100;
 p.p_G_M = 1.234*1e3*1e-1;
 p.d_I = 0.144*0.1;
-p.p_MPhi_I_L =  0.42*4;
+p.p_MPhi_I_L =  0.78; % old number from simulation was zero point four two times four
 p.p_MPhi_I_G =  0.42*4;
 
 %---------------------------------------------------
@@ -201,29 +207,44 @@ p.d_K = 0.156;
 %----------------------------------------------------
 
 %IFN-GAMMA-------------------------------------------
-p.K0 = 1.18 * 10^-3;
-p.del_I_K = 1.037;
-p.del_T_K = 0.1593;
-p.eps_K_L = 2.102 * 10^-5;
-p.eps_I_K = 2345 * 10^-6;
-p.eps_T_K = 3646 * 10^-6;
-p.eps_K_A = 2.651 * 10^-5;
-p.p_K_A = 0.2148;
-p.p_K = 0.0365;
-p.d_K = 0.156;
+p.Gamma_U_0 = 0.91;            
+p.Gamma_B_0 = 1.432 * 10^(−7);               
+p.p_Gamma_T = 6.5; %production of IFN gamma by T cells       
+p.eta_Gamma_T = 8.37*10^(−5);   %half effect of IFN gamma production by T cells 
+p.p_Gamma_K = 21.667; % production of IFN gamma by NK cells              
+p.eta_Gamma_K = 2.99*10^(−4) ;  %half effect of IFN gamma production by NK cells 
+p.k_lin_Gamma = 28.5;      
+p.k_int_Gamma = 17;          
+p.k_B_Gamma = 0.0382;          
+p.k_U_Gamma = 432;          
+p.R_Gamma_T = 500;    
+p.R_Gamma_I = 1800; 
+p.R_Gamma_MPhi = 760; 
+p.MM_Gamma = 16500;             
 
 %----------------------------------------------------
 
 %TNF-ALPHA-------------------------------------------
-p.K0 = 1.18 * 10^-3;
-p.del_I_K = 1.037;
-p.del_T_K = 0.1593;
-p.eps_K_L = 2.102 * 10^-5;
-p.eps_I_K = 2345 * 10^-6;
-p.eps_T_K = 3646 * 10^-6;
-p.eps_K_A = 2.651 * 10^-5;
-p.p_K_A = 0.2148;
-p.d_K = 0.156;
+p.alpha_U_0 = 0.7;            
+p.alpha_B_0 = 5.98 *0^(−6);               
+p.p_alpha_MPhi = 3824;            %production of TNF alpha by Macrophages        
+p.eta_alpha_MPhi = 2.22*10^(−4) ;   %half effect of TNF alpha by Macrophages 
+p.p_alpha_M = 110;                %production of TNF alpha by Monocytes        
+p.eta_alpha_M = 0.3851;          %half effect of TNF alpha by Monocytes
+p.p_alpha_T = 450;          %production of TNF alpha by T cells        
+p.eta_alpha_T = 9.706*10^(−5);      %half effect of IFN gamma production by T cells 
+p.p_alpha_K = 1000;            %production of TNF alpha by NK cells        
+p.eta_alpha_K = 4.29*10^(−4);   %half effect of IFN gamma production by T cells 
+p.k_lin_alpha = 66.54;      
+p.k_int_alpha = 57.6;          
+p.k_B_alpha = 0.15;          
+p.k_U_alpha = 449.46;          
+p.R_alpha_M = 230;    
+p.R_alpha_T = 300;  
+p.R_alpha_MPhi = 1500;  
+p.R_alpha_I = 714; 
+p.R_alpha_K = 230; 
+p.MM_alpha = 17300;       
 
 %----------------------------------------------------
 
