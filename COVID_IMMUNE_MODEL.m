@@ -41,9 +41,9 @@ C_BF=C_B/(p.A_C*N);
    
 dV = p.phat*I-p.del_V_MPhi*MPhi_I*V-p.del_V_N*V*N-p.d_V_spec*V;
 dS = p.lam_S*(1-(S+I+D+R)/p.Smax)*S-p.beta*S*V-p.rho*p.del_N/(1+(p.IC_50_N/N)^p.h_N)*S;%-p.rho*p.del_N/(1+(p.IC_50_N/M)^p.h_N)*S-p.rho*p.del_N/(1+(0.009/MPhi_I)^p.h_N)*S;
-dI = p.beta/(1+F_B/p.eps_F_I)*ylag1(2)*ylag1(1)-p.d_I*I-p.del_N/(1+(p.IC_50_N/N).^p.h_N)*I-p.del_I_MPhi*MPhi_I*I-p.del_I_T*T*I- (((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B)));   
-dR = p.lam_S*(1-(S+I+D+R)/p.Smax)*R+p.beta*S*V/(1+p.eps_F_I/F_B)-p.rho*p.del_N/(1+(p.IC_50_N*2/N)^p.h_N)*R+p.lam_S*(1-(S+I+D+R)/p.Smax)*R;
-dD = p.d_I*I+p.del_N*I/(1+(p.IC_50_N/N)^p.h_N)+p.del_N*p.rho*S/(1+(p.IC_50_N/N)^p.h_N)+p.del_I_MPhi*MPhi_I*I+p.del_I_T*T*I-p.d_D*D-p.del_D_MPhi*D*(MPhi_R+MPhi_I)+p.del_MPhi_D*D*(MPhi_I)+p.del_N*p.rho/(1+(p.IC_50_N/N)^p.h_N)*R +  (((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B)));%+p.rho*p.del_N/(1+(p.IC_50_N/M)^p.h_N)*S+p.rho*p.del_N/(1+(0.009/MPhi_I)^p.h_N)*S;%close+p.d_M*M+p.d_N*N+p.d_T*T;
+dI = (p.beta/2)*((p.eps_F_I/(p.eps_F_I+F_B))+(p.eps_Gamma_I/(p.eps_Gamma_I+Gamma_B)))*ylag1(2)*ylag1(1)-p.d_I*I-p.del_N/(1+(p.IC_50_N/N).^p.h_N)*I-p.del_I_MPhi*MPhi_I*I-p.del_I_T*T*I- (((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B)));   
+dR = p.lam_S*(1-(S+I+D+R)/p.Smax)*R+(p.beta/2)*((p.eps_F_I/(p.eps_F_I+F_B))+(p.eps_Gamma_I/(p.eps_Gamma_I+Gamma_B)))*ylag1(2)*ylag1(1)-p.rho*p.del_N/(1+(p.IC_50_N*2/N)^p.h_N)*R+p.lam_S*(1-(S+I+D+R)/p.Smax)*R;
+dD = p.d_I*I+p.del_N*I/(1+(p.IC_50_N/N)^p.h_N)+p.del_N*p.rho*S/(1+(p.IC_50_N/N)^p.h_N)+p.del_I_MPhi*MPhi_I*I+p.del_I_T*T*I-p.d_D*D-p.del_D_MPhi*D*(MPhi_R+MPhi_I)+p.del_MPhi_D*D*(MPhi_I)+p.del_N*p.rho/(1+(p.IC_50_N/N)^p.h_N)*R +  (((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B)))+ (p.del_MPhi*alpha_B*Gamma_B*MPhi_I)/(alpha_B*Gamma_B+p.eps_Gamma_alpha);%+p.rho*p.del_N/(1+(p.IC_50_N/M)^p.h_N)*S+p.rho*p.del_N/(1+(0.009/MPhi_I)^p.h_N)*S;%close+p.d_M*M+p.d_N*N+p.d_T*T;
 
 dMPhi_R = -p.a_I_MPhi*MPhi_R*(I+D)+(1-MPhi_R/p.MPhi_max)*p.lam_MPhi*MPhi_I/(V+p.eps_V_MPhi);
 dMPhi_I = p.a_I_MPhi*MPhi_R*(I+D)+p.p_MPhi_I_G*G_B^p.h_M_MPhi/(G_B^p.h_M_MPhi+p.eps_G_MPhi^p.h_M_MPhi)*M+p.p_MPhi_I_L*L_B/(L_B+p.eps_L_MPhi)*M-p.d_MPhi_I*MPhi_I-p.del_MPhi_D*MPhi_I*D-(1-MPhi_R/p.MPhi_max)*p.lam_MPhi*MPhi_I/(V+p.eps_V_MPhi);%-p.del_I_T*T*MPhi_I*100;%-p.del_MPhi_D*MPhi_I*T;    
