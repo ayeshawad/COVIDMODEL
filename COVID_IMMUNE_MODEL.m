@@ -61,19 +61,19 @@ dF_U = p.p_F_I*I/(I+p.eta_F_I)+p.p_F_MPhi*MPhi_I/(MPhi_I+p.eta_F_MPhi)+p.p_F_M*M
 dF_B = -p.k_int_F*F_B+p.k_B_F*((T+I)*p.A_F-F_B)*F_U-p.k_U_F*F_B;
 
 dK = (p.p_K * K) - (p.d_K * K); + ((p.p_K_A * alpha_B * K) / (alpha_B + p.eps_K_A))
-dK_I_L = ((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B));
 dGamma_U = p.p_Gamma_T*T/(T+p.eta_Gamma_T)+p.p_Gamma_K*K/(K+p.eta_Gamma_K)-p.k_lin_Gamma*Gamma_U-p.k_B_Gamma*((I+T+MPhi_I)*p.A_Gamma-Gamma_B)*Gamma_U+p.k_U_Gamma*Gamma_B;
 dGamma_B = -p.k_int_Gamma*Gamma_B+p.k_B_Gamma*((N+T+MPhi_I)*p.A_Gamma-Gamma_B)*Gamma_U-p.k_U_Gamma*Gamma_B;
 dalpha_U = p.p_alpha_T*T/(T+p.eta_alpha_T)+p.p_alpha_MPhi*MPhi_I/(MPhi_I+p.eta_alpha_MPhi)+p.p_alpha_M*M/(M+p.eta_alpha_M)+p.p_alpha_K*K/(K+p.eta_alpha_K)-p.k_lin_alpha*alpha_U-p.k_B_alpha*((K+T+M+MPhi_I+I)*p.A_alpha-alpha_B)*alpha_U+p.k_U_alpha*alpha_B;
 dalpha_B = -p.k_int_alpha*alpha_B+p.k_B_alpha*((K+T+M+MPhi_I+I)*p.A_alpha-alpha_B)*alpha_U-p.k_U_alpha*alpha_B;
 
+dK_I_L = ((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B));
 
-dydt = [dV;dS;dI;dR;dD;dMPhi_R;dMPhi_I;dM;dN;dT;dL_U;dL_B;dG_U;dG_B;dC_U;dC_B;dF_U;dF_B;dK; dK_I_L;dGamma_U;dGamma_B;dalpha_U;dalpha_B];
+dydt = [dV;dS;dI;dR;dD;dMPhi_R;dMPhi_I;dM;dN;dT;dL_U;dL_B;dG_U;dG_B;dC_U;dC_B;dF_U;dF_B;dK;dGamma_U;dGamma_B;dalpha_U;dalpha_B;dK_I_L];
 
 end
 %------------------------------------------------------------------------=
 function s = history(t)
-  s = [p.V0;p.S0;p.I0;p.R0;p.D0;p.MPhi_R_0;p.MPhi_I_0;p.M0;p.N0;p.T0;p.L_U_0;p.L_B_0;p.G_U_0;p.G_B_0;p.C_U_0;p.C_B_0;p.F_U_0;p.F_B_0;p.K0; p.I0;p.Gamma_U_0;p.Gamma_B_0;p.alpha_U_0;p.alpha_B_0];
+  s = [p.V0;p.S0;p.I0;p.R0;p.D0;p.MPhi_R_0;p.MPhi_I_0;p.M0;p.N0;p.T0;p.L_U_0;p.L_B_0;p.G_U_0;p.G_B_0;p.C_U_0;p.C_B_0;p.F_U_0;p.F_B_0;p.K0;p.Gamma_U_0;p.Gamma_B_0;p.alpha_U_0;p.alpha_B_0;p.I0];
 end
 function d = delayP(t,y,p)
 %This function sets up the delay vectors necessary for the DDE solver.
