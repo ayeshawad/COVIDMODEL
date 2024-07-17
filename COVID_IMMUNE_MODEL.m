@@ -32,6 +32,10 @@ F_U = y(17);
 F_B = y(18);
 
 K = y(19);
+Gamma_U = y(20);
+Gamma_B = y(21);
+alpha_U = y(22);
+alpha_B = y(23);
 
 C_BF=C_B/(p.A_C*N);
    
@@ -58,9 +62,13 @@ dF_B = -p.k_int_F*F_B+p.k_B_F*((T+I)*p.A_F-F_B)*F_U-p.k_U_F*F_B;
 
 dK = (p.p_K * K) - (p.d_K * K); % + ((p.p_K_A * A_B * K) / (A_B + p.eps_K_A))
 dK_I_L = ((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B));
+dGamma_U = p.p_L_I*I/(I+p.eta_L_I)+p.p_L_MPhi*MPhi_I/(MPhi_I+p.eta_L_MPhi)+p.p_L_M*M/(M+p.eta_L_M)-p.k_lin_L*L_U-p.k_B_L*((N+T+M)*p.A_L-L_B)*L_U+p.k_U_L*L_B;
+dGamma_B = -p.k_int_L*L_B+p.k_B_L*((N+T+M)*p.A_L-L_B)*L_U-p.k_U_L*L_B;
+dalpha_U = p.p_L_I*I/(I+p.eta_L_I)+p.p_L_MPhi*MPhi_I/(MPhi_I+p.eta_L_MPhi)+p.p_L_M*M/(M+p.eta_L_M)-p.k_lin_L*L_U-p.k_B_L*((N+T+M)*p.A_L-L_B)*L_U+p.k_U_L*L_B;
+dalpha_B = -p.k_int_L*L_B+p.k_B_L*((N+T+M)*p.A_L-L_B)*L_U-p.k_U_L*L_B;
 
 
-dydt = [dV;dS;dI;dR;dD;dMPhi_R;dMPhi_I;dM;dN;dT;dL_U;dL_B;dG_U;dG_B;dC_U;dC_B;dF_U;dF_B;dK; dK_I_L];
+dydt = [dV;dS;dI;dR;dD;dMPhi_R;dMPhi_I;dM;dN;dT;dL_U;dL_B;dG_U;dG_B;dC_U;dC_B;dF_U;dF_B;dK; dK_I_L;dGamma_U;dGamma_B;dalpha_U;dalpha_B];
 
 end
 %------------------------------------------------------------------------=
