@@ -60,6 +60,7 @@ p.p_MPhi_I_L   = p.p_MPhi_I_G;             % differentiation of monocyte to macr
 p.eps_L_MPhi   = 0.001 % old value was 1102.9/1e5 & differentiation of monocyte to macrophage by IL-6 (half-effect)
 p.d_MPhi_I     = 0.3;        % death rate of infiltrating macrophages
 p.del_MPhi   = 0.617;     % Rate inflammatory macrophages die due to TNF alpha and IFN gamma
+p.eps_Gamma_alpha = 4.984*10^(−6) % Rate inflammatory macrophages die due to TNF alpha and IFN gamma (half effect)
 p.eps_alpha_MPhi = 0.001093;
 
 %Monocytes %--------------------------------------------------------------
