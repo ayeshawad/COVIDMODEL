@@ -266,6 +266,56 @@ xlabel('Time (days)')
 saveas(gcf,'Fig_4S.fig');
 saveas(gcf,'Fig_4S.png');
 
+% IFN-Gamma 
+fig = figure;
+hold on 
+plot(timeM, solM(21,:),'Color',[32 52 79]/255,'LineWidth',3);
+plot(timeS, solS(21,:),'--','Color',[233 150 156]/255,'LineWidth',3);
+ylabel('pg/ml')
+title('Unbound IFN-Gamma ')
+set(gca,'Fontsize',24)
+xlabel('Time (days)')
+saveas(gcf,'Fig_4PP.fig');
+saveas(gcf,'Fig_4PP.png');
+
+figure
+hold on
+plot(timeM, solM(22,:),'Color',[32 52 79]/255,'LineWidth',3);
+plot(timeS, solS(22,:),'--','Color',[233 150 156]/255,'LineWidth',3);
+ylabel('pg/ml')
+title('Bound IFN-Gamma ')
+%legend('Gamma_U(t) (mild)','Gamma_U(t) (severe)','Gamma_B(t) (mild)','Gamma_B(t) (severe)')
+legend('Mild disease','Severe disease')
+set(gca,'Fontsize',24)
+xlabel('Time (days)')
+saveas(gcf,'Fig_SI4QQ.fig');
+saveas(gcf,'Fig_SI4QQ.png');
+
+% TNF Alpha 
+fig = figure;
+hold on 
+plot(timeM, solM(23,:),'Color',[32 52 79]/255,'LineWidth',3);
+plot(timeS, solS(23,:),'--','Color',[233 150 156]/255,'LineWidth',3);
+ylabel('pg/ml')
+title('Unbound TNF-Alpha ')
+set(gca,'Fontsize',24)
+xlabel('Time (days)')
+saveas(gcf,'Fig_4PPP.fig');
+saveas(gcf,'Fig_4PPP.png');
+
+figure
+hold on
+plot(timeM, solM(24,:),'Color',[32 52 79]/255,'LineWidth',3);
+plot(timeS, solS(24,:),'--','Color',[233 150 156]/255,'LineWidth',3);
+ylabel('pg/ml')
+title('Bound TNF-Alpha ')
+%legend('alpha_U(t) (mild)','alpha_U(t) (severe)','alpha_B(t) (mild)','alpha_B(t) (severe)')
+legend('Mild disease','Severe disease')
+set(gca,'Fontsize',24)
+xlabel('Time (days)')
+saveas(gcf,'Fig_SI4QQQ.fig');
+saveas(gcf,'Fig_SI4QQQ.png');
+
 
 
 
