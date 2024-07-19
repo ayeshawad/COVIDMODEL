@@ -244,7 +244,7 @@ p.A_G = p.stoch*p.MM_G/p.avo*(p.R_G_M)*(1/5000)*10^9*1e12;% GM-CSF
 p.A_C = 2*p.MM_C/p.avo*p.R_C_N*(1/5000)*10^9*1e9;% G-CSF
 p.A_F = p.stoch*p.MM_F/p.avo*(p.R_F_T+p.R_F_I)*(1/5000)*10^9*1e12;% IFN
 p.A_Gamma = p.stoch*p.MM_Gamma/p.avo*(p.R_Gamma_T+p.R_Gamma_I+p.R_Gamma_MPhi)*(1/5000)*10^9*1e12;% IFN Gamma
-p.A_alpha = p.stoch*p.MM_alpha/p.avo*(p.R_alpha_M+p.R_alpha_T+p.R_alpha_MPhi+p.R_alpha_I+p.R_alpha_K)*(1/5000)*10^9*1e12;% TNF Alpha
+p.A_alpha = p.stoch*p.MM_alpha/p.avo*(p.R_alpha_M+p.R_alpha_MPhi+p.R_alpha_K)*(1/5000)*10^9*1e12;% TNF Alpha
 
 end
 
