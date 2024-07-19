@@ -63,8 +63,8 @@ dF_B = -p.k_int_F*F_B+p.k_B_F*((T+I)*p.A_F-F_B)*F_U-p.k_U_F*F_B;
 dK =  (p.K_prod_star * p.KR)- (p.d_K * K) + ((p.p_K_A * alpha_B * K) / (alpha_B + p.eps_K_A)); 
 dGamma_U = p.p_Gamma_T*T/(T+p.eta_Gamma_T)+p.p_Gamma_K*K/(K+p.eta_Gamma_K)-p.k_lin_Gamma*Gamma_U-p.k_B_Gamma*((I+T+MPhi_I)*p.A_Gamma-Gamma_B)*Gamma_U+p.k_U_Gamma*Gamma_B;
 dGamma_B = -p.k_int_Gamma*Gamma_B+p.k_B_Gamma*((N+T+MPhi_I)*p.A_Gamma-Gamma_B)*Gamma_U-p.k_U_Gamma*Gamma_B;
-dalpha_U = p.p_alpha_T*T/(T+p.eta_alpha_T)+p.p_alpha_MPhi*MPhi_I/(MPhi_I+p.eta_alpha_MPhi)+p.p_alpha_M*M/(M+p.eta_alpha_M)+p.p_alpha_K*K/(K+p.eta_alpha_K)-p.k_lin_alpha*alpha_U-p.k_B_alpha*((K+T+M+MPhi_I+I)*p.A_alpha-alpha_B)*alpha_U+p.k_U_alpha*alpha_B;
-dalpha_B = -p.k_int_alpha*alpha_B+p.k_B_alpha*((K+T+M+MPhi_I+I)*p.A_alpha-alpha_B)*alpha_U-p.k_U_alpha*alpha_B;
+dalpha_U = p.p_alpha_T*T/(T+p.eta_alpha_T)+p.p_alpha_MPhi*MPhi_I/(MPhi_I+p.eta_alpha_MPhi)+p.p_alpha_M*M/(M+p.eta_alpha_M)+p.p_alpha_K*K/(K+p.eta_alpha_K)-p.k_lin_alpha*alpha_U-p.k_B_alpha*((K+M+MPhi_I)*p.A_alpha-alpha_B)*alpha_U+p.k_U_alpha*alpha_B;
+dalpha_B = -p.k_int_alpha*alpha_B+p.k_B_alpha*((K+M+MPhi_I)*p.A_alpha-alpha_B)*alpha_U-p.k_U_alpha*alpha_B;
 
 dK_I_L = ((p.del_I_K * I * K)/(K + p.eps_I_K))* (p.eps_K_L / (p.eps_K_L + L_B));
 
