@@ -25,6 +25,7 @@ p.p_F_I = 0.002;
 p.eta_F_MPhi = 1e-4*2;
 p.p_M_I = 2*0.6;
 p.eps_K_L = 2.102 * 10^-6;
+p.p_Gamma_T = 30;
   
 [timeS,solS] = COVID_IMMUNE_MODEL(p,tspan);
 
