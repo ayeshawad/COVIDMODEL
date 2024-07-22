@@ -199,9 +199,9 @@ p.KR = 1.1 * 10^-4;
 %IFN-GAMMA-------------------------------------------
 p.Gamma_U_0 = 0.91;            
 p.Gamma_B_0 = 1.432 * 10^(-7);               
-p.p_Gamma_T = 6.5; %production of IFN gamma by T cells       
+p.p_Gamma_T = 300; %production of IFN gamma by T cells       
 p.eta_Gamma_T = 8.37*10^(-5);   %half effect of IFN gamma production by T cells 
-p.p_Gamma_K = 350; % production of IFN gamma by NK cells              
+p.p_Gamma_K = 325; % production of IFN gamma by NK cells              
 p.eta_Gamma_K = 2.99*10^(-4) ;  %half effect of IFN gamma production by NK cells 
 p.k_lin_Gamma = 28.5;      
 p.k_int_Gamma = 17;          
