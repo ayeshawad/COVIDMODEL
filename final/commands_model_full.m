@@ -6,7 +6,7 @@ p = load_parameters();
 p = Homeostasis_calculations(p);
 
 %-----------------------------------------------------------------------
-estimated_params = [p.p_L_M  p.L_B_star  p.MPhi_I_star  p.p_L_MPhi  p.eta_G_MPhi  p.p_G_MPhi_I  p.T_prod_star p.T_M_prod_star p.p_G_M  p.M_prod_star p.N_prod_star p.eta_F_MPhi p.K_prod_star];
+estimated_params = [p.p_L_M  p.L_B_star  p.MPhi_I_star  p.p_L_MPhi  p.eta_G_MPhi  p.p_G_MPhi_I  p.T_prod_star p.T_M_prod_star p.p_G_M  p.M_prod_star p.N_prod_star p.eta_F_MPhi p.alpha_U_star p.alpha_B_star p.alpha_B_0 p.K_prod_star];
 
 if isempty(find(estimated_params<0))==0
     disp('Negative parameter')
