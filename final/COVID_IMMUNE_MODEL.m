@@ -1,7 +1,7 @@
-function [time,sol] = COVID_IMMUNE_MODEL(p,tspan, h)
+function [time,sol] = COVID_IMMUNE_MODEL(p,tspan)
 
 opts = ddeset('RelTol',1e-6,'AbsTol',1e-6,'MaxStep',1e-2);
-solstruc = ddesd(@ddefun,@(t,y) delayP(t,y,p),h,tspan, opts);
+solstruc = ddesd(@ddefun,@(t,y) delayP(t,y,p),@history,tspan, opts);
 
 time = solstruc.x;
 sol = solstruc.y;
