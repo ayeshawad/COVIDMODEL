@@ -1,0 +1,31 @@
+# all the necessary libraries
+library(ComplexHeatmap)
+library(circlize)
+library(dplyr)
+ 
+# this is the matlab data file from matlab code turned in to csv so I can extract values from it
+data <- read.csv("/Users/away/Downloads/sensitivity_results_5percent_final.csv", row.names = 1, check.names = FALSE)
+
+# here is where i do the relative normalization per column
+centered_normalize <- function(x) {
+  max_abs <- max(abs(x))  # i am finding the max absolute value in the column
+  x / max_abs             # then scaling the the column to range between -1 and 1
+}
+ 
+# making sure i am applying the centered normalization to each column independently
+data_norm <- data
+data_norm <- apply(data, 2, centered_normalize)
+ 
+# picked my colors
+col_fun <- colorRamp2(c(-1, 0, 1), c("red", "white", "blue"))
+ 
+# created the heatmap with the color scale i just picked
+Heatmap(
+  data_norm,
+  name = "Deviation",
+  col = col_fun,
+  show_row_names = TRUE,
+  show_column_names = TRUE,
+  column_title = "Column-wise Normalized Deviations (Centered at 0)",
+  heatmap_legend_param = list(title = "Deviation", color_bar = "continuous")
+)
