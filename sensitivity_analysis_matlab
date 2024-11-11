@@ -1,0 +1,59 @@
+function sensitivity_analysis()
+    % load all parameters
+    p = load_parameters();
+    p = Homeostasis_calculations(p);
+
+    
+    param_names = fieldnames(p);
+
+    % get baseline 
+    [baseline_time, baseline_sol] = COVID_IMMUNE_MODEL(p, [0 30]);
+    baseline_values = compute_outputs(baseline_sol);
+
+    % create matrix with zeros first
+    results = zeros(length(param_names), 8, 2);
+
+    % the sensitivity analysis loop with 5% preturbation
+    for i = 1:length(param_names)
+        param_name = param_names{i};
+        baseline_param = p.(param_name);
+
+        
+        p.(param_name) = 1.05 * baseline_param;
+        [time_plus, sol_plus] = COVID_IMMUNE_MODEL(p, [0 30]);
+        results(i, :, 1) = compute_outputs(sol_plus) ./ baseline_values - 1; % Relative change
+
+        
+        p.(param_name) = 0.95 * baseline_param;
+        [time_minus, sol_minus] = COVID_IMMUNE_MODEL(p, [0 30]);
+        results(i, :, 2) = compute_outputs(sol_minus) ./ baseline_values - 1; % Relative change
+
+        % resetting to baseline
+        p.(param_name) = baseline_param;
+    end
+%saving all the values in a matlab data file with variables of interest
+    save('sensitivity_results.mat', 'results', 'param_names', 'baseline_values');
+end
+
+% finding the outputs based on simulation results
+function outputs = compute_outputs(sol)
+    V = sol(1, :);  
+    D = sol(5, :);  
+    S = sol(2, :);  
+    R = sol(4, :);  
+    MPhi_I = sol(7, :); 
+    T = sol(10, :);
+    LU = sol(11, :); 
+    FU = sol(17, :); 
+
+    outputs = [
+        max(V),
+        max(D),
+        min(S + R),
+        max(MPhi_I),
+        max(T),
+        max(LU),
+        max(FU),
+        trapz(FU) % total IFN exposure
+    ];
+end
