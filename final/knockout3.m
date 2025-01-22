@@ -21,8 +21,11 @@ tspan = [0 30];
 
 % Prepare parameters for the monocyte knockout scenario
 p_monocyte_knockout = p;
-p_monocyte_knockout.M0 = 0; % Set initial monocyte count to zero for knockout
+%p_monocyte_knockout.M0 = 0; % Set initial monocyte count to zero for knockout
 %p_monocyte_knockout.MR = 0;
+p_monocyte_knockout.p_M_I= 0; 
+p_monocyte_knockout.p_MPhi_I_G=0;
+p_monocyte_knockout.p_MPhi_I_L = 0;
 
 
 % Simulate the monocyte knockout case
