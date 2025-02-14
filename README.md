@@ -8,4 +8,4 @@ Instructions to run MATLAB simulations:
 5. View beautiful graphs
 
 //Elon University
-//Dr. Hwayeon Ryu, Ayesh Awaad, Murilo Ferreira Lopes, Nicolas Alvarez, and Keopagnapech Ngoun
+//Dr. Hwayeon Ryu, Ayesh Awad, Murilo Ferreira Lopes, Nicolas Alvarez, and Keopagnapech Ngoun
