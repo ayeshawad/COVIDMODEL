@@ -11,21 +11,22 @@ p.lag_g6 = 2.76;
 p.lag_g7 = 2;
 % Model curves -----------------------------------------------------------
 
+%Viral Load
 fig = figure;
 hold on 
-l1 = plot(timeM, solM(1,:),'Color',[32 52 79]/255,'LineWidth',3);
-l3 = plot(p.lag_s5+time_s5,viral_load_s5,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-plot(p.lag_s6+time_s6,viral_load_s6,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-plot(p.lag_s18+time_s18,viral_load_s18,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-plot(p.lag_g1+time_g1,viral_load_g1,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-plot(p.lag_g2+time_g2,viral_load_g2,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-plot(p.lag_g5+time_g5,viral_load_g5,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-plot(p.lag_g6+time_g6,viral_load_g6,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-plot(p.lag_g7+time_g7,viral_load_g7,'o','Color',[0.5 0.5 0.5],'LineWidth',1)
-l3 = plot(timeS, solS(1,:),'--','Color',[233 150 156]/255,'LineWidth',3);
-set(gca,'yscale','linear')
+l1 = plot(timeM, 10.^(solM(1,:)),'Color',[32 52 79]/255,'LineWidth',3);
+l3 = plot(p.lag_s5+time_s5,10.^(viral_load_s5),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+plot(p.lag_s6+time_s6,10.^(viral_load_s6),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+plot(p.lag_s18+time_s18,10.^(viral_load_s18),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+plot(p.lag_g1+time_g1,10.^(viral_load_g1),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+plot(p.lag_g2+time_g2,10.^(viral_load_g2),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+plot(p.lag_g5+time_g5,10.^(viral_load_g5),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+plot(p.lag_g6+time_g6,10.^(viral_load_g6),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+plot(p.lag_g7+time_g7,10.^(viral_load_g7),'o','Color',[0.5 0.5 0.5],'LineWidth',1)
+l3 = plot(timeS, 10.^(solS(1,:)),'--','Color',[233 150 156]/255,'LineWidth',3);
+set(gca,'yscale','log')
 title('Viral load')
-ylabel('log_{10}(copies/ml)')
+ylabel('copies/ml')
 %legend([l1 l2 l3], {'V(t) (mild)','Data','V(t) (severe)'})
 set(gca,'Fontsize',24)
 xlabel('Time (days)')
@@ -34,20 +35,22 @@ saveas(gcf,'Fig_4A.fig');
 saveas(gcf,'Fig_4A.png');
 
 
+
 fig = figure;
 hold on 
-l4 = plot(timeM, (solM(2,:)+solM(4,:))*1e9,'Color',[32 52 79]/255,'LineWidth',3);
-l5 = plot(timeS, (solS(2,:)+solS(4,:))*1e9,'--','Color',[233 150 156]/255,'LineWidth',3);
+l4 = plot(timeM, (solM(2,:) +solM(4,:)) * 1e9,'Color',[32 52 79]/255,'LineWidth',3);
+l5 = plot(timeS, (solS(2,:) +solS(4,:)) * 1e9,'--','Color',[233 150 156]/255,'LineWidth',3);
 set(gca,'yscale','log')
 ylabel('cells/ml')
 title('Uninfected cells')
 %legend([l1 l2 l3 l4 l5], {'V(t) (mild)','Data','V(t) (severe)','S(t)+R(t) (mild)','S(t)+R(t) (severe)'})
 set(gca,'Fontsize',24)
-set(gca,'yTick',[1e5 1e6 1e7 1e8])
+%set(gca,'yTick',[1e5 1e6 1e7 1e8])
 xlabel('Time (days)')
 xlim([0 20])
 saveas(gcf,'Fig_4B.fig');
 saveas(gcf,'Fig_4B.png');
+
  
 %dead cells
 fig = figure;
@@ -98,10 +101,10 @@ ylabel('cells/ml')
 title('Inflammatory macs')
 %legend('M_{\Phi R}(t) (mild)','M_{\Phi R}(t) (severe)','M_{\Phi I}(t) (mild)','M_{\Phi I}(t) (severe)')
 set(gca,'Fontsize',24)
+set(gca,'yTick',[1E1 1e2 1e3 1e4 1e5])
 xlabel('Time (days)')
 saveas(gcf,'Fig_4F.fig');
 saveas(gcf,'Fig_4F.png');
-
 %monocytes cells
 fig = figure;
 hold on 
@@ -120,14 +123,15 @@ hold on
 plot(timeM, solM(9,:)*1e9,'Color',[32 52 79]/255,'LineWidth',3);
 plot(timeS, solS(9,:)*1e9,'--','Color',[233 150 156]/255,'LineWidth',3);
 set(gca,'yscale','log')
-ylabel('cells/ml')
 title('Neutrophils')
-%legend('M(t) (mild)','M(t) (severe)','N(t) (mild)','N(t) (severe)')
 set(gca,'Fontsize',24)
-xlabel('Time (days)')
-set(gca,'yTick',[1e5 1e6 1e7 1e8])
+ylabel('cells/ml');
+xlabel('Time (days)');
+set(gca, 'FontSize', 24);
 saveas(gcf,'Fig_4H.fig');
 saveas(gcf,'Fig_4H.png');
+
+
 
 %T cells
 fig = figure;
@@ -238,7 +242,7 @@ plot(timeS, solS(18,:),'--','Color',[233 150 156]/255,'LineWidth',3);
 ylabel('pg/ml')
 title('Bound IFN ')
 %legend('F_U(t) (mild)','F_U(t) (severe)','F_B(t) (mild)','F_B(t) (severe)')
-legend('Mild disease','Severe disease')
+%legend('Mild disease','Severe disease')
 set(gca,'Fontsize',24)
 xlabel('Time (days)')
 saveas(gcf,'Fig_SI4Q.fig');
@@ -262,6 +266,7 @@ plot(timeM, solM(24,:)*1e9,'Color',[32 52 79]/255,'LineWidth',3);
 plot(timeS, solS(24,:)*1e9,'--','Color',[233 150 156]/255,'LineWidth',3);
 ylabel('cells/mL')
 title('Infected Cells Killed by NK')
+set(gca,'Fontsize',24)
 xlabel('Time (days)')
 saveas(gcf,'Fig_4S.fig');
 saveas(gcf,'Fig_4S.png');
@@ -285,7 +290,7 @@ plot(timeS, solS(21,:),'--','Color',[233 150 156]/255,'LineWidth',3);
 ylabel('pg/ml')
 title('Bound IFN-Gamma ')
 %legend('Gamma_U(t) (mild)','Gamma_U(t) (severe)','Gamma_B(t) (mild)','Gamma_B(t) (severe)')
-legend('Mild disease','Severe disease')
+%legend('Mild disease','Severe disease')
 set(gca,'Fontsize',24)
 xlabel('Time (days)')
 saveas(gcf,'Fig_SI4QQ.fig');
@@ -310,13 +315,10 @@ plot(timeS, solS(23,:),'--','Color',[233 150 156]/255,'LineWidth',3);
 ylabel('pg/ml')
 title('Bound TNF-Alpha ')
 %legend('alpha_U(t) (mild)','alpha_U(t) (severe)','alpha_B(t) (mild)','alpha_B(t) (severe)')
-legend('Mild disease','Severe disease')
+%legend('Mild disease','Severe disease')
 set(gca,'Fontsize',24)
 xlabel('Time (days)')
 saveas(gcf,'Fig_SI4QQQ.fig');
 saveas(gcf,'Fig_SI4QQQ.png');
-
-
-
 
 end
